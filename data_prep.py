@@ -11,33 +11,37 @@ from sklearn.pipeline import Pipeline
 
 
 class Pipes():
+    def __init__(self, reduce_to=10, use_pca=False):
+        self.use_pca = use_pca
+        self.reduce_to = reduce_to
+
     def identity_pipe(self,columns):
-        identity_pipeline = Pipeline([
-                ('selector', DataFrameSelector(columns)),
-            ])
+        id_p = [('selector', DataFrameSelector(columns))]
+        if self.use_pca:
+            id_p.append(('pca', PCA(n_components=self.reduce_to)))
+        identity_pipeline = Pipeline(id_p)
         return identity_pipeline
 
     def base_pipe(self,columns):
-        base_pipeline = Pipeline([
-                ('selector', DataFrameSelector(columns)),
-                ('std_scaler', StandardScaler()),
-            ])
+        base_p = [('selector', DataFrameSelector(columns)),('std_scaler', StandardScaler())]
+        if self.use_pca
+            base_p.append(('pca', PCA(n_components=self.reduce_to)))
+        base_pipeline = Pipeline(base_p)
         return base_pipeline
 
     def dummy_pipe(self, columns):
-        dummy_pipeline = Pipeline([
-                ('dummies', Dummifier()),
-                ('selector', DataFrameSelector(columns)),
-                ('std_scaler', StandardScaler()),
-            ])
+        dummy_p = [('dummies', Dummifier()),('selector', DataFrameSelector(columns)),('std_scaler', StandardScaler())]
+        if self.use_pca:
+            dummy_p.append(('pca', PCA(n_components=self.reduce_to)))
+        dummy_pipeline = Pipeline(dummy_p)
         return dummy_pipeline
 
-    def pca_sep_pipe(self, columns, reduce_to):
+    def pca_sep_pipe(self, columns):
         pca_sep_pipeline = Pipeline([
                 ('dummies', Dummifier()),
                 ('selector', DataFrameSelector(columns)),
                 ('std_scaler', StandardScaler()),
-                ('pca', PCA(n_components=reduce_to))
+                ('pca', PCA(n_components= self.reduce_to))
             ])
         return pca_sep_pipeline
 
