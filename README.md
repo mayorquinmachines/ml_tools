@@ -1,4 +1,4 @@
-###### ML tools 
+# ML tools 
 
 This is a small custom made library to make experimentation faster when trying to build a good machine learning model.
 It includes:
@@ -14,6 +14,13 @@ There are 4 kinds of pipelines you can use from the Pipes() class:
 3. dummy_pipe- transforms a pandas dataframe to a standardized, one hot encoded numpy array
 4. pca_sep_pipe- transforms a pandas dataframe to a standardized numpy array + PCA reduced one hot encodings as numpy
 array
+
+If desired, the Pipes() class has a flag use_pca that can be set to True to apply pca to pipes 
+1, 2 , or 3. The default n_components is set to 10. You can set this variable as well when initializing the class like
+so:
+```python
+pipe = Pipes(use_pca=True, reduce_to=20)
+```
 
 The DataPrep class has two methods: load_data() and transform()
 
