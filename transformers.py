@@ -41,7 +41,7 @@ class FactorFeatures(BaseEstimator, TransformerMixin):
             add_col = {'Xpair'+str(i): new_feat}
             new_cols.update(add_col)
         new_cols_df = pd.Dataframe(new_cols)
-        final_df = pd.DataFrame([X, new_cols_df], axis=1)
+        final_df = pd.concat([X, new_cols_df], axis=1)
         return final_df
         
 
