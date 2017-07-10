@@ -24,7 +24,7 @@ class Pipes():
 
     def base_pipe(self,columns):
         base_p = [('selector', DataFrameSelector(columns)),('std_scaler', StandardScaler())]
-        if self.use_pca
+        if self.use_pca:
             base_p.append(('pca', PCA(n_components=self.reduce_to)))
         base_pipeline = Pipeline(base_p)
         return base_pipeline
