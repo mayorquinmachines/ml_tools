@@ -72,13 +72,13 @@ class DataPrep():
     def transform(self, X_train, X_val, test):
         pipe = Pipes()
         if self.base_pipe:
-            columns = helpers.common_cols(X_train, test)
+            columns = helpers.common_cols(X_train, test, X_val)
             base_pipeline = pipe.base_pipe(columns)
             X_train,X_val, test = helpers.apply_pipe(X_train, X_val, test, base_pipeline)
             return X_train, X_val, test
 
         elif self.dummy_pipe:
-            columns = helpers.cat_cols(X_train, test)
+            columns = helpers.cat_cols(X_train, test, X_val)
             dummy_pipeline = pipe.dummy_pipe(columns)
             X_train,X_val, test = helpers.apply_pipe(X_train, X_val, test, dummy_pipeline)
             return X_train, X_val, test
@@ -104,7 +104,7 @@ class DataPrep():
             test = np.concatenate((test, test_sep), axis=1)
             return X_train, X_val, test
         else:
-            columns = helpers.common_cols(X_train, test)
+            columns = helpers.common_cols(X_train, test, X_val)
             identity_pipe = pipe.identity_pipe(columns)
             X_train,X_val, test = helpers.apply_pipe(X_train, X_val, test, identity_pipe)
             return X_train, X_val, test
