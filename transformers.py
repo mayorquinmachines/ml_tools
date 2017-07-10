@@ -28,7 +28,7 @@ class DataFrameImputer(BaseEstimator, TransformerMixin):
 
 class FactorFeatures(BaseEstimator, TransformerMixin):
     def __init__(self, feature_pairs):
-    """ Multiplies features specified as a list of tuples """
+        """ Multiplies features specified as a list of tuples """
         self.feature_pairs = feature_pairs
 
     def fit(self, X, y=None):
