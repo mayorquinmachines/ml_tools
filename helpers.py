@@ -42,7 +42,7 @@ def cat_cols(train, test, X_val=None):
     train_cols = get_cols(train)
     test_cols = get_cols(test)
     columns = [x for x in train_cols if x in test_cols]
-    if X_val:
+    if isinstance(X_val, pd.core.frame.DataFrame):
         val_cols = get_cols(X_val)
         columns = [x for x in columns if x in val_cols]
     return columns
@@ -52,7 +52,7 @@ def common_cols(train, test, X_val=None):
     train_cols = train.columns.tolist()
     test_cols = test.columns.tolist()
     columns = [x for x in train_cols if x in test_cols]
-    if X_val:
+    if isinstance(X_val, pd.core.frame.DataFrame):
         val_cols = X_val.columns.tolist()
         columns = [x for x in columns if x in val_cols]
     return columns
